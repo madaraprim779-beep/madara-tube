@@ -1,0 +1,812 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<meta name="description" content="MADARA TUBE — Ton univers vidéo.">
+<title>MADARA TUBE</title>
+
+<style>
+:root {
+  --red: #ff263f;
+  --black: #080808;
+  --panel: #151515;
+  --text: #ffffff;
+  --muted: #aaaaaa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--black);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body.intro-active {
+  overflow: hidden;
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* ===== ANIMATION D'ENTRÉE ===== */
+
+#mt-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at center,
+      #31080e 0%, #130508 38%, #030303 78%);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .8s ease, visibility .8s ease;
+}
+
+#mt-intro.finished {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.intro-light {
+  position: absolute;
+  left: 15%;
+  width: 70%;
+  height: 2px;
+  background: var(--red);
+  box-shadow: 0 0 12px var(--red), 0 0 45px var(--red);
+  transform: scaleX(0);
+  animation: lightReveal 1.1s ease-out .2s forwards;
+}
+
+.intro-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  opacity: 0;
+  transform: scale(.82) translateY(12px);
+  animation: logoReveal 1.2s cubic-bezier(.2,.8,.2,1) .65s forwards;
+}
+
+.intro-symbol {
+  width: 82px;
+  height: 82px;
+  margin: 0 auto 24px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,38,63,.8);
+  border-radius: 23px;
+  background: linear-gradient(145deg, #31070d, #090909);
+  box-shadow: 0 0 35px rgba(255,38,63,.25),
+              inset 0 0 20px rgba(255,38,63,.12);
+  transform: rotate(-8deg);
+}
+
+.intro-symbol span {
+  color: var(--red);
+  font-size: 48px;
+  font-weight: 900;
+  text-shadow: 0 0 25px rgba(255,38,63,.8);
+  transform: rotate(8deg);
+}
+
+.intro-title {
+  margin: 0;
+  font-size: clamp(27px, 7vw, 54px);
+  font-weight: 900;
+  letter-spacing: .06em;
+  white-space: nowrap;
+}
+
+.intro-title span {
+  color: var(--red);
+}
+
+.intro-tagline {
+  margin-top: 15px;
+  color: #b8b8b8;
+  font-size: 10px;
+  letter-spacing: .3em;
+  opacity: 0;
+  animation: taglineReveal .7s ease 1.6s forwards;
+}
+
+.intro-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: #242424;
+}
+
+.intro-progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--red);
+  box-shadow: 0 0 12px var(--red);
+  animation: progressRun 4.3s linear forwards;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #ff4659;
+  box-shadow: 0 0 12px var(--red);
+  animation: particleFloat 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes lightReveal {
+  to { transform: scaleX(1); }
+}
+
+@keyframes logoReveal {
+  0% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: scale(.82) translateY(12px);
+  }
+  70% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes taglineReveal {
+  to { opacity: 1; }
+}
+
+@keyframes progressRun {
+  to { width: 100%; }
+}
+
+@keyframes particleFloat {
+  from { transform: translateY(0); opacity: .15; }
+  to { transform: translateY(-24px); opacity: .9; }
+}
+
+/* ===== NAVIGATION ===== */
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(8,8,8,.96);
+  border-bottom: 1px solid #252525;
+}
+
+.navbar {
+  max-width: 1400px;
+  min-height: 68px;
+  margin: auto;
+  padding: 12px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 21px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.brand-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--red);
+  color: white;
+  font-size: 18px;
+}
+
+.brand span {
+  color: var(--red);
+}
+
+.search {
+  width: min(380px, 42%);
+  display: flex;
+  gap: 7px;
+}
+
+.search input {
+  width: 100%;
+  min-width: 0;
+  padding: 11px 13px;
+  color: white;
+  background: #191919;
+  border: 1px solid #383838;
+  border-radius: 8px;
+  outline: none;
+}
+
+.search input:focus {
+  border-color: var(--red);
+}
+
+.search button, .red-button {
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 8px;
+  color: white;
+  background: var(--red);
+  font-weight: bold;
+}
+
+/* ===== ACCUEIL ===== */
+
+main {
+  max-width: 1400px;
+  margin: auto;
+  padding: 24px 5% 60px;
+}
+
+.hero {
+  min-height: 260px;
+  padding: clamp(24px, 5vw, 55px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-radius: 17px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 85% 25%, rgba(255,38,63,.3), transparent 40%),
+    linear-gradient(110deg, #24080c, #101010 65%, #1c070a);
+  border: 1px solid #40151c;
+}
+
+.hero-label {
+  color: var(--red);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: .18em;
+}
+
+.hero h1 {
+  margin: 14px 0 10px;
+  font-size: clamp(29px, 6vw, 50px);
+}
+
+.hero p {
+  max-width: 480px;
+  color: #c4c4c4;
+  line-height: 1.6;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 28px 0 16px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 21px;
+}
+
+.section-heading span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.categories {
+  display: flex;
+  gap: 9px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+
+.category {
+  flex-shrink: 0;
+  padding: 9px 15px;
+  border: 1px solid #333;
+  border-radius: 22px;
+  color: white;
+  background: #191919;
+}
+
+.category.active, .category:hover {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.video-card {
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--panel);
+  border: 1px solid #252525;
+  transition: transform .2s, border-color .2s;
+}
+
+.video-card:hover {
+  transform: translateY(-3px);
+  border-color: #63202a;
+}
+
+.thumbnail {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #202020;
+  overflow: hidden;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.play-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0,0,0,.13);
+}
+
+.play-overlay span {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255,38,63,.94);
+  color: white;
+  font-size: 20px;
+}
+
+.video-info {
+  padding: 13px;
+}
+
+.video-info h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.video-info p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.video-info button {
+  margin-top: 12px;
+  padding: 8px 11px;
+  border: 1px solid #444;
+  border-radius: 7px;
+  color: white;
+  background: #222;
+}
+
+.video-info button:hover {
+  border-color: var(--red);
+}
+
+.empty {
+  padding: 30px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ===== LECTEUR ===== */
+
+.player-section {
+  margin-top: 28px;
+  padding: 15px;
+  background: #121212;
+  border: 1px solid #292929;
+  border-radius: 12px;
+}
+
+.player-section h2 {
+  font-size: 18px;
+}
+
+.player {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: 0;
+  border-radius: 8px;
+}
+
+footer {
+  padding: 25px 5%;
+  border-top: 1px solid #252525;
+  color: #888;
+  text-align: center;
+  font-size: 12px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 850px) {
+  .video-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .navbar {
+    flex-wrap: wrap;
+  }
+  .brand {
+    font-size: 18px;
+  }
+  .search {
+    width: 100%;
+    order: 2;
+  }
+  main {
+    padding-top: 15px;
+  }
+  .hero {
+    min-height: 220px;
+  }
+  .video-grid {
+    gap: 12px;
+  }
+  .video-info {
+    padding: 10px;
+  }
+  .video-info h3 {
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body class="intro-active">
+
+<!-- INTRO CINÉMATIQUE -->
+<div id="mt-intro" role="status" aria-label="MADARA TUBE démarre">
+  <div class="intro-light"></div>
+
+  <div class="intro-content">
+    <div class="intro-symbol"><span>M</span></div>
+    <h1 class="intro-title">MADARA <span>TUBE</span></h1>
+    <div class="intro-tagline">TON UNIVERS VIDÉO</div>
+  </div>
+
+  <div class="intro-progress"><span></span></div>
+</div>
+
+<header>
+  <nav class="navbar">
+    <div class="brand">
+      <div class="brand-icon">▶</div>
+      <div>MADARA <span>TUBE</span></div>
+    </div>
+
+    <form class="search" id="search-form">
+      <input id="search-input" type="search"
+        placeholder="Rechercher une vidéo..."
+        aria-label="Rechercher une vidéo">
+      <button type="submit">Chercher</button>
+    </form>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-label">BIENVENUE SUR MADARA TUBE</div>
+    <h1>Ton univers vidéo.</h1>
+    <p>
+      Découvre des vidéos, explore tes centres d'intérêt
+      et profite d'une expérience vidéo adaptée à ton écran.
+    </p>
+    <button class="red-button" id="explore-button">
+      ▶ Explorer les vidéos
+    </button>
+  </section>
+
+  <section>
+    <div class="section-heading">
+      <h2>Explorer</h2>
+      <span id="video-count">Vidéos de démonstration</span>
+    </div>
+
+    <div class="categories" id="categories">
+      <button class="category active" data-category="Tout">Tout</button>
+      <button class="category" data-category="Musique">Musique</button>
+      <button class="category" data-category="Gaming">Gaming</button>
+      <button class="category" data-category="Cinéma">Cinéma</button>
+      <button class="category" data-category="Technologie">Technologie</button>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-heading">
+      <h2>À découvrir</h2>
+      <span>Catalogue de démonstration</span>
+    </div>
+
+    <div class="video-grid" id="video-grid"></div>
+    <div class="empty" id="empty-message" hidden>
+      Aucune vidéo trouvée pour cette recherche.
+    </div>
+  </section>
+
+  <section class="player-section" id="player-section" hidden>
+    <div class="section-heading">
+      <h2 id="player-title">Lecture vidéo</h2>
+      <button class="category" id="close-player">Fermer</button>
+    </div>
+    <iframe class="player" id="video-player"
+      title="Lecteur vidéo MADARA TUBE"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+      referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    <p style="color:#aaa;font-size:12px">
+      Vidéo intégrée depuis YouTube. La disponibilité dépend de la vidéo
+      et des autorisations définies par son propriétaire.
+    </p>
+  </section>
+</main>
+
+<footer>
+  MADARA TUBE © 2026 — TON UNIVERS VIDÉO.
+</footer>
+
+<script>
+/* ===== INTRO : 4,5 SECONDES ===== */
+(function () {
+  const intro = document.getElementById("mt-intro");
+
+  function finishIntro() {
+    if (!intro) return;
+    intro.classList.add("finished");
+    document.body.classList.remove("intro-active");
+    setTimeout(() => intro.remove(), 900);
+  }
+
+  if (intro) {
+    for (let i = 0; i < 22; i++) {
+      const particle = document.createElement("i");
+      particle.className = "particle";
+      particle.style.left = (Math.random() * 100) + "%";
+      particle.style.top = (Math.random() * 100) + "%";
+      particle.style.animationDelay = (Math.random() * 2) + "s";
+      intro.appendChild(particle);
+    }
+
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (reduced) {
+      finishIntro();
+    } else {
+      setTimeout(finishIntro, 4500);
+    }
+  }
+})();
+
+/* ===== CATALOGUE DE DÉMONSTRATION ===== */
+const videos = [
+  {
+    id: "aqz-KE-bpKQ",
+    title: "Découverte vidéo — Big Buck Bunny",
+    channel: "Blender Foundation",
+    category: "Cinéma",
+    thumbnail: "https://img.youtube.com/vi/aqz-KE-bpKQ/hqdefault.jpg"
+  },
+  {
+    id: "ScMzIvxBSi4",
+    title: "Exemple vidéo de démonstration",
+    channel: "Démonstration",
+    category: "Technologie",
+    thumbnail: "https://img.youtube.com/vi/ScMzIvxBSi4/hqdefault.jpg"
+  },
+  {
+    id: "jNQXAC9IVRw",
+    title: "Me at the zoo — vidéo historique",
+    channel: "YouTube",
+    category: "Cinéma",
+    thumbnail: "https://img.youtube.com/vi/jNQXAC9IVRw/hqdefault.jpg"
+  },
+  {
+    id: "M7lc1UVf-VE",
+    title: "Démonstration du lecteur YouTube",
+    channel: "YouTube Developers",
+    category: "Technologie",
+    thumbnail: "https://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg"
+  }
+];
+
+const grid = document.getElementById("video-grid");
+const emptyMessage = document.getElementById("empty-message");
+const searchInput = document.getElementById("search-input");
+const playerSection = document.getElementById("player-section");
+const player = document.getElementById("video-player");
+const playerTitle = document.getElementById("player-title");
+
+let activeCategory = "Tout";
+
+function renderVideos() {
+  const query = searchInput.value.trim().toLowerCase();
+
+  const filtered = videos.filter(video => {
+    const matchesCategory =
+      activeCategory === "Tout" ||
+      video.category === activeCategory;
+
+    const matchesSearch =
+      video.title.toLowerCase().includes(query) ||
+      video.channel.toLowerCase().includes(query) ||
+      video.category.toLowerCase().includes(query);
+
+    return matchesCategory && matchesSearch;
+  });
+
+  grid.innerHTML = "";
+
+  filtered.forEach(video => {
+    const card = document.createElement("article");
+    card.className = "video-card";
+
+    const thumbnail = document.createElement("div");
+    thumbnail.className = "thumbnail";
+
+    const img = document.createElement("img");
+    img.src = video.thumbnail;
+    img.alt = "Miniature : " + video.title;
+    img.loading = "lazy";
+    img.onerror = () => {
+      img.style.display = "none";
+      thumbnail.style.background =
+        "linear-gradient(135deg,#25080c,#111)";
+    };
+
+    const overlay = document.createElement("div");
+    overlay.className = "play-overlay";
+
+    const playIcon = document.createElement("span");
+    playIcon.textContent = "▶";
+    overlay.appendChild(playIcon);
+
+    thumbnail.append(img, overlay);
+
+    const info = document.createElement("div");
+    info.className = "video-info";
+
+    const title = document.createElement("h3");
+    title.textContent = video.title;
+
+    const details = document.createElement("p");
+    details.textContent =
+      video.channel + " • " + video.category;
+
+    const playButton = document.createElement("button");
+    playButton.textContent = "▶ Regarder";
+    playButton.addEventListener("click", () => playVideo(video));
+
+    info.append(title, details, playButton);
+    card.append(thumbnail, info);
+
+    thumbnail.style.cursor = "pointer";
+    thumbnail.addEventListener("click", () => playVideo(video));
+
+    grid.appendChild(card);
+  });
+
+  emptyMessage.hidden = filtered.length !== 0;
+  document.getElementById("video-count").textContent =
+    filtered.length + " vidéo(s)";
+}
+
+function playVideo(video) {
+  playerTitle.textContent = video.title;
+  player.src =
+    "https://www.youtube-nocookie.com/embed/" +
+    encodeURIComponent(video.id) +
+    "?autoplay=1&rel=0";
+
+  playerSection.hidden = false;
+  playerSection.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
+document.getElementById("search-form").addEventListener(
+  "submit",
+  function (event) {
+    event.preventDefault();
+    renderVideos();
+  }
+);
+
+searchInput.addEventListener("input", renderVideos);
+
+document.getElementById("categories").addEventListener(
+  "click",
+  function (event) {
+    const button = event.target.closest("[data-category]");
+    if (!button) return;
+
+    activeCategory = button.dataset.category;
+
+    document.querySelectorAll(".category[data-category]")
+      .forEach(item => item.classList.remove("active"));
+
+    button.classList.add("active");
+    renderVideos();
+  }
+);
+
+document.getElementById("explore-button").addEventListener(
+  "click",
+  function () {
+    document.getElementById("categories").scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  }
+);
+
+document.getElementById("close-player").addEventListener(
+  "click",
+  function () {
+    player.src = "";
+    playerSection.hidden = true;
+  }
+);
+
+renderVideos();
+</script>
+</body>
+</html>
