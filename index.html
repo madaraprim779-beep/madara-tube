@@ -3,399 +3,335 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#080808">
-<title>MADARA ANONYMOUS × THOMAS SHELBY TUBE</title>
+<title>MADARA X SHELBY TUBE</title>
 
 <style>
 :root {
-  --red: #ed1025;
-  --bg: #080808;
-  --panel: #151515;
-  --muted: #a6a6a6;
+  --red:#ed1025;
+  --bg:#080808;
+  --panel:#171717;
+  --muted:#aaa;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing:border-box; margin:0; padding:0; }
 
 body {
-  background: var(--bg);
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
-  min-height: 100vh;
+  background:var(--bg);
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
-button, input { font: inherit; }
-
-button { cursor: pointer; }
+button,input { font:inherit; }
+button { cursor:pointer; }
 
 #intro {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background:
-    radial-gradient(ellipse at center, #370009 0%, #100000 40%, #030303 78%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  overflow: hidden;
-  animation: introExit 1s ease 5.5s forwards;
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  background:radial-gradient(ellipse,#41000b,#100004 45%,#030303);
+  animation:exitIntro .8s ease 5s forwards;
+  overflow:hidden;
 }
 
-.intro-ring {
-  position: absolute;
-  width: 220px;
-  height: 220px;
-  border: 1px solid #ed102555;
-  border-radius: 50%;
-  box-shadow: 0 0 45px #ed102522, inset 0 0 35px #ed102522;
-  animation: ringPulse 2s ease-in-out infinite;
+.ring {
+  position:absolute;
+  width:220px;
+  height:220px;
+  border:1px solid #ed102566;
+  border-radius:50%;
+  box-shadow:0 0 50px #ed102533,inset 0 0 40px #ed102522;
+  animation:pulse 2s infinite;
 }
 
-.intro-logo {
-  color: white;
-  font-size: clamp(65px, 17vw, 115px);
-  font-weight: 1000;
-  letter-spacing: -7px;
-  text-shadow: 0 0 15px #ed1025, 0 0 45px #ed102588;
-  animation: logoEnter 1.3s cubic-bezier(.2,.8,.2,1) both;
+.logo {
+  font-size:clamp(65px,17vw,110px);
+  font-weight:1000;
+  letter-spacing:-6px;
+  text-shadow:0 0 15px var(--red),0 0 50px #ed102599;
+  animation:logoIn 1.3s ease both;
 }
 
 .intro-title {
-  margin-top: 20px;
-  font-size: clamp(16px, 4vw, 27px);
-  font-weight: 900;
-  letter-spacing: 3px;
-  animation: fadeUp 1s ease .8s both;
+  margin-top:15px;
+  font-size:clamp(17px,4vw,26px);
+  font-weight:900;
+  letter-spacing:2px;
+  animation:up .9s ease .7s both;
 }
 
-.intro-title span { color: var(--red); }
+.intro-title span { color:var(--red); }
 
-.intro-slogan {
-  color: #c5c5c5;
-  margin-top: 13px;
-  font-size: 11px;
-  letter-spacing: 4px;
-  animation: fadeUp 1s ease 1.3s both;
-}
-
-.intro-line {
-  height: 2px;
-  width: 0;
-  background: var(--red);
-  box-shadow: 0 0 15px var(--red);
-  margin-top: 30px;
-  animation: lineGrow 1.5s ease 1.6s forwards;
+.slogan {
+  margin-top:13px;
+  color:#bbb;
+  font-size:10px;
+  letter-spacing:4px;
+  animation:up .9s ease 1s both;
 }
 
-.intro-status {
-  margin-top: 17px;
-  color: #aaa;
-  font-size: 10px;
-  letter-spacing: 3px;
-  animation: fadeUp 1s ease 2s both;
+.line {
+  width:0;
+  height:2px;
+  margin-top:27px;
+  background:var(--red);
+  box-shadow:0 0 15px var(--red);
+  animation:grow 1.4s ease 1.5s forwards;
 }
 
-@keyframes logoEnter {
-  from { opacity: 0; transform: scale(.4) rotateX(60deg); }
-  to { opacity: 1; transform: scale(1) rotateX(0); }
+.boot {
+  margin-top:15px;
+  color:#aaa;
+  font-size:10px;
+  letter-spacing:3px;
 }
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+
+@keyframes logoIn {
+  from { opacity:0; transform:scale(.4) rotateX(45deg); }
+  to { opacity:1; transform:scale(1) rotateX(0); }
 }
-@keyframes ringPulse {
-  50% { transform: scale(1.12); opacity: .45; }
+@keyframes up {
+  from { opacity:0; transform:translateY(18px); }
+  to { opacity:1; transform:translateY(0); }
 }
-@keyframes lineGrow {
-  to { width: min(300px, 70vw); }
+@keyframes pulse {
+  50% { transform:scale(1.12); opacity:.4; }
 }
-@keyframes introExit {
-  to { opacity: 0; visibility: hidden; pointer-events: none; }
+@keyframes grow {
+  to { width:min(300px,70vw); }
+}
+@keyframes exitIntro {
+  to { opacity:0; visibility:hidden; pointer-events:none; }
 }
 
 header {
-  height: 66px;
-  padding: 0 5%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: #080808ed;
-  backdrop-filter: blur(15px);
-  border-bottom: 1px solid #ffffff0c;
+  position:sticky;
+  top:0;
+  z-index:30;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 4%;
+  background:#090909ed;
+  border-bottom:1px solid #ffffff14;
+  backdrop-filter:blur(14px);
 }
 
 .brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 900;
-  white-space: nowrap;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-weight:900;
+  white-space:nowrap;
 }
 
-.brand-logo {
-  width: 39px;
-  height: 39px;
-  display: grid;
-  place-items: center;
-  background: var(--red);
-  border-radius: 10px;
-  box-shadow: 0 0 18px #ed102533;
-  font-size: 16px;
+.brand-icon {
+  display:grid;
+  place-items:center;
+  width:39px;
+  height:39px;
+  background:var(--red);
+  border-radius:9px;
+  box-shadow:0 0 18px #ed102533;
 }
 
-.brand-name { font-size: 16px; }
-.brand-name span { color: var(--red); }
+.brand-name { font-size:15px; }
+.brand-name span { color:var(--red); }
 
 .search {
-  display: flex;
-  align-items: center;
-  width: min(360px, 43%);
-  background: #1a1a1a;
-  border: 1px solid #333;
-  border-radius: 7px;
-  overflow: hidden;
+  display:flex;
+  width:min(420px,52%);
+  overflow:hidden;
+  border:1px solid #393939;
+  border-radius:7px;
+  background:#1b1b1b;
 }
 
 .search input {
-  background: transparent;
-  border: 0;
-  outline: none;
-  color: white;
-  padding: 12px;
-  width: 100%;
-  min-width: 0;
+  width:100%;
+  min-width:0;
+  padding:12px;
+  color:white;
+  background:transparent;
+  border:0;
+  outline:none;
 }
 
 .search button {
-  border: 0;
-  background: var(--red);
-  color: white;
-  padding: 12px;
+  padding:0 16px;
+  border:0;
+  background:var(--red);
+  color:white;
 }
 
 .hero {
-  padding: 65px 6% 45px;
-  min-height: 350px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  padding:60px 6% 45px;
   background:
-    linear-gradient(90deg, #080808 0%, #080808e8 48%, #08080855 100%),
-    radial-gradient(ellipse at 75% 40%, #65000d 0%, #180006 35%, #080808 75%);
-  border-bottom: 1px solid #ffffff0b;
+    linear-gradient(90deg,#080808 0%,#080808e8 55%,#08080877),
+    radial-gradient(ellipse at 80% 40%,#6d0011,#160006 48%,#080808);
+  border-bottom:1px solid #ffffff12;
 }
 
 .eyebrow {
-  color: var(--red);
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 4px;
-  margin-bottom: 17px;
+  color:var(--red);
+  font-size:11px;
+  font-weight:bold;
+  letter-spacing:4px;
+  margin-bottom:18px;
 }
 
 .hero h1 {
-  max-width: 700px;
-  font-size: clamp(35px, 8vw, 72px);
-  line-height: .98;
-  font-weight: 1000;
-  letter-spacing: -2px;
+  font-size:clamp(38px,8vw,74px);
+  line-height:.98;
+  letter-spacing:-2px;
+  font-weight:1000;
 }
 
-.hero h1 span { color: var(--red); }
+.hero h1 span { color:var(--red); }
 
 .hero p {
-  margin-top: 20px;
-  color: #c2c2c2;
-  max-width: 460px;
-  line-height: 1.7;
-  font-size: 14px;
+  margin-top:19px;
+  color:#bbb;
+  max-width:500px;
+  font-size:14px;
+  line-height:1.7;
 }
 
-.actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 25px;
-}
-
-.btn {
-  padding: 12px 19px;
-  border: 0;
-  border-radius: 5px;
-  font-weight: 800;
-}
-
-.btn-red { background: var(--red); color: white; }
-.btn-dark { background: #ffffff17; color: white; border: 1px solid #ffffff25; }
-
-main { padding: 30px 5%; }
+main { padding:28px 5%; }
 
 .tabs {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  padding-bottom: 20px;
+  display:flex;
+  gap:9px;
+  overflow-x:auto;
+  padding-bottom:25px;
 }
 
 .tab {
-  background: #191919;
-  border: 1px solid #303030;
-  border-radius: 30px;
-  color: #ddd;
-  padding: 10px 17px;
-  white-space: nowrap;
+  padding:10px 17px;
+  white-space:nowrap;
+  color:#ddd;
+  background:#191919;
+  border:1px solid #333;
+  border-radius:25px;
 }
 
 .tab.active {
-  background: var(--red);
-  border-color: var(--red);
-  color: white;
+  background:var(--red);
+  border-color:var(--red);
+  color:#fff;
 }
 
-.section-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  margin: 12px 0 20px;
+.heading {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:20px;
 }
 
-.section-heading h2 { font-size: 21px; }
-.section-heading small { color: var(--muted); }
+.heading h2 { font-size:21px; }
+
+#count {
+  color:var(--muted);
+  font-size:12px;
+}
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
-  gap: 17px 12px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(145px,1fr));
+  gap:17px 12px;
 }
 
 .card {
-  background: var(--panel);
-  border-radius: 8px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform .2s, box-shadow .2s;
+  min-width:0;
+  background:var(--panel);
+  border-radius:8px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:transform .2s,box-shadow .2s;
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 7px 25px #ed102522;
+  transform:translateY(-4px);
+  box-shadow:0 8px 25px #ed102522;
 }
 
 .thumb {
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  display: block;
-  background: #222;
+  display:block;
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  background:#222;
 }
 
-.card-info { padding: 11px; }
+.info { padding:11px; }
 
-.card h3 {
-  font-size: 13px;
-  line-height: 1.4;
-  overflow-wrap: anywhere;
+.info h3 {
+  font-size:13px;
+  line-height:1.5;
+  overflow-wrap:anywhere;
 }
 
-.card p {
-  font-size: 11px;
-  color: var(--muted);
-  margin-top: 7px;
+.info p {
+  margin-top:7px;
+  color:var(--muted);
+  font-size:11px;
 }
 
-.play-label {
-  display: inline-block;
-  color: #ff5967;
-  font-size: 10px;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.notice {
-  color: #aaa;
-  font-size: 12px;
-  line-height: 1.6;
-  padding: 20px 0;
+.play {
+  display:inline-block;
+  margin-top:10px;
+  color:#ff5868;
+  font-size:10px;
+  font-weight:bold;
 }
 
 #status {
-  color: #ccc;
-  padding: 25px 0;
-  font-size: 13px;
+  padding:25px 0;
+  color:#ccc;
+  font-size:13px;
+  overflow-wrap:anywhere;
 }
 
-#player {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  background: #000e;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
+.more {
+  display:block;
+  margin:28px auto;
+  padding:13px 22px;
+  color:white;
+  background:var(--red);
+  border:0;
+  border-radius:6px;
+  font-weight:bold;
 }
 
-.player-box {
-  width: min(850px, 100%);
-  background: #151515;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.player-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 13px;
-  gap: 10px;
-}
-
-.player-top button {
-  background: var(--red);
-  border: 0;
-  color: white;
-  padding: 9px 13px;
-  border-radius: 5px;
-}
-
-#frame {
-  width: 100%;
-  aspect-ratio: 16/9;
-  border: 0;
-  display: block;
-  background: #000;
-}
+.more:disabled { opacity:.5; }
 
 footer {
-  padding: 30px 5%;
-  color: #777;
-  text-align: center;
-  border-top: 1px solid #ffffff12;
-  font-size: 11px;
-  line-height: 1.8;
+  padding:28px 5%;
+  border-top:1px solid #ffffff12;
+  color:#888;
+  text-align:center;
+  font-size:11px;
+  line-height:1.8;
 }
 
-@media (max-width: 480px) {
-  header { padding: 0 12px; gap: 8px; }
-  .brand-name { font-size: 12px; }
-  .brand-logo { width: 34px; height: 34px; }
-  .search { width: 43%; }
-  .search input { padding: 10px 7px; font-size: 12px; }
-  .search button { padding: 10px; }
-  .hero { padding: 55px 20px 40px; }
-  main { padding: 25px 13px; }
-  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media(max-width:480px) {
+  header { padding:10px; gap:8px; }
+  .brand-name { font-size:11px; }
+  .brand-icon { width:33px; height:33px; }
+  .search { width:48%; }
+  .search input { padding:10px 7px; font-size:12px; }
+  .search button { padding:0 11px; }
+  .hero { padding:50px 20px 38px; }
+  main { padding:23px 12px; }
+  .grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
 }
 </style>
 </head>
@@ -403,23 +339,25 @@ footer {
 <body>
 
 <div id="intro">
-  <div class="intro-ring"></div>
-  <div class="intro-logo">MXST</div>
+  <div class="ring"></div>
+  <div class="logo">MXST</div>
   <div class="intro-title">MADARA <span>×</span> SHELBY</div>
-  <div class="intro-slogan">TON UNIVERS. SANS LIMITES.</div>
-  <div class="intro-line"></div>
-  <div class="intro-status">INITIALISATION DU SYSTÈME...</div>
+  <div class="slogan">TON UNIVERS. SANS LIMITES.</div>
+  <div class="line"></div>
+  <div class="boot">INITIALISATION DU SYSTÈME...</div>
 </div>
 
 <header>
   <div class="brand">
-    <div class="brand-logo">MX</div>
+    <div class="brand-icon">MX</div>
     <div class="brand-name">MADARA <span>×</span> SHELBY</div>
   </div>
 
   <form class="search" id="searchForm">
-    <input id="searchInput" type="search" placeholder="Rechercher..." aria-label="Rechercher des vidéos">
-    <button type="submit">⌕</button>
+    <input id="query" type="search"
+      placeholder="Rechercher sur YouTube..."
+      aria-label="Rechercher sur YouTube">
+    <button type="submit" aria-label="Rechercher">⌕</button>
   </form>
 </header>
 
@@ -427,90 +365,53 @@ footer {
   <div class="eyebrow">MADARA ANONYMOUS PRESENTS</div>
   <h1>TON UNIVERS.<br><span>SANS LIMITES.</span></h1>
   <p>
-    Films, séries, documentaires, animes et vidéos.
-    Découvre ton prochain univers.
+    Explore les vidéos, musiques, jeux, documentaires,
+    actualités, films et bien plus encore.
   </p>
-  <div class="actions">
-    <button class="btn btn-red" onclick="loadCategory('movie')">▶ Explorer les films</button>
-    <button class="btn btn-dark" onclick="loadCategory('tv')">Découvrir les séries</button>
-  </div>
 </section>
 
 <main>
-  <nav class="tabs" aria-label="Catégories">
-    <button class="tab active" data-category="movie" onclick="loadCategory('movie')">Films</button>
-    <button class="tab" data-category="tv" onclick="loadCategory('tv')">Séries</button>
-    <button class="tab" data-category="anime" onclick="loadCategory('anime')">Animes</button>
-    <button class="tab" data-category="trending" onclick="loadCategory('trending')">Tendances</button>
+  <nav class="tabs">
+    <button class="tab active" data-q="tendances musique" onclick="quickSearch('tendances musique',this)">Tendances</button>
+    <button class="tab" data-q="musique" onclick="quickSearch('musique',this)">Musique</button>
+    <button class="tab" data-q="gaming" onclick="quickSearch('gaming',this)">Gaming</button>
+    <button class="tab" data-q="football" onclick="quickSearch('football',this)">Football</button>
+    <button class="tab" data-q="animes" onclick="quickSearch('animes',this)">Animes</button>
+    <button class="tab" data-q="documentaires" onclick="quickSearch('documentaires',this)">Documentaires</button>
   </nav>
 
-  <div class="section-heading">
-    <h2 id="sectionTitle">À découvrir</h2>
-    <small id="count"></small>
+  <div class="heading">
+    <h2 id="sectionTitle">Explorer YouTube</h2>
+    <span id="count"></span>
   </div>
 
-  <div id="status">Préparation du catalogue...</div>
-  <section class="grid" id="catalogue"></section>
-
-  <p class="notice">
-    Les affiches et informations du catalogue sont fournies par TMDB.
-    MADARA X SHELBY TUBE n'est ni affilié à YouTube ni à TMDB.
-    La disponibilité des vidéos dépend de leurs propriétaires.
-  </p>
+  <div id="status">Chargement des vidéos...</div>
+  <section id="results" class="grid"></section>
+  <button id="more" class="more" hidden onclick="loadMore()">
+    Charger plus de vidéos
+  </button>
 </main>
-
-<div id="player" onclick="closePlayer(event)">
-  <div class="player-box">
-    <div class="player-top">
-      <strong id="playerTitle">Vidéo</strong>
-      <button onclick="closePlayer()">Fermer ✕</button>
-    </div>
-    <iframe id="frame" allowfullscreen
-      referrerpolicy="strict-origin-when-cross-origin"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
-    </iframe>
-  </div>
-</div>
 
 <footer>
   <strong>MADARA ANONYMOUS × THOMAS SHELBY</strong><br>
   TON UNIVERS. SANS LIMITES.<br>
-  Les contenus restent la propriété de leurs ayants droit.
+  Plateforme indépendante utilisant YouTube Data API v3.
+  Les vidéos appartiennent à leurs propriétaires respectifs.
 </footer>
 
 <script>
-/*
-  Configuration :
-  1. Ajoute ta clé TMDB dans la constante ci-dessous si tu en as une.
-  2. La clé YouTube ne doit JAMAIS être placée dans ce fichier public.
-  3. La recherche YouTube utilisera ensuite une fonction serveur Vercel.
-*/
-
-const TMDB_KEY = ""; // Clé TMDB facultative pour le catalogue
-
-const catalogue = document.getElementById("catalogue");
+const results = document.getElementById("results");
 const statusBox = document.getElementById("status");
-const sectionTitle = document.getElementById("sectionTitle");
 const countBox = document.getElementById("count");
+const titleBox = document.getElementById("sectionTitle");
+const moreButton = document.getElementById("more");
 
-const titles = {
-  movie: "Films populaires",
-  tv: "Séries populaires",
-  anime: "Animes",
-  trending: "Tendances",
-  search: "Résultats de recherche"
-};
+let currentQuery = "tendances musique";
+let nextPageToken = null;
+let totalShown = 0;
+let loading = false;
 
-function setActive(category) {
-  document.querySelectorAll(".tab").forEach(button => {
-    button.classList.toggle(
-      "active",
-      button.dataset.category === category
-    );
-  });
-}
-
-function escapeHtml(value = "") {
+function escapeHTML(value = "") {
   return String(value).replace(/[&<>"']/g, char => ({
     "&": "&amp;",
     "<": "&lt;",
@@ -520,175 +421,124 @@ function escapeHtml(value = "") {
   })[char]);
 }
 
-function posterUrl(path) {
-  return path
-    ? "https://image.tmdb.org/t/p/w500" + path
-    : "";
-}
-
-function renderCards(items, type = "movie") {
-  catalogue.innerHTML = "";
-
-  if (!items || items.length === 0) {
-    statusBox.textContent = "Aucun résultat disponible.";
-    countBox.textContent = "";
-    return;
-  }
-
-  statusBox.textContent = "";
-  countBox.textContent = items.length + " titres";
-
-  items.forEach(item => {
-    const title = item.title || item.name || "Sans titre";
-    const image = posterUrl(item.poster_path || item.backdrop_path);
-    const date = (item.release_date || item.first_air_date || "").slice(0, 4);
-    const card = document.createElement("article");
-    card.className = "card";
-
-    const img = document.createElement("img");
-    img.className = "thumb";
-    img.alt = title;
-    img.loading = "lazy";
-    img.src = image || "https://placehold.co/500x300/151515/ffffff?text=MADARA+TUBE";
-    img.onerror = () => {
-      img.src = "https://placehold.co/500x300/151515/ffffff?text=MADARA+TUBE";
-    };
-
-    const info = document.createElement("div");
-    info.className = "card-info";
-    info.innerHTML =
-      "<h3>" + escapeHtml(title) + "</h3>" +
-      "<p>" + escapeHtml(date || "Catalogue") + "</p>" +
-      "<span class='play-label'>▶ DÉTAILS</span>";
-
-    card.append(img, info);
-
-    card.addEventListener("click", () => {
-      // Ouvre la recherche YouTube pour trouver une bande-annonce
-      // ou une vidéo officiellement publiée par son propriétaire.
-      const query = title + " bande annonce officielle";
-      openYouTubeSearch(query);
-    });
-
-    catalogue.appendChild(card);
+function setActive(button) {
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.classList.toggle("active", tab === button);
   });
 }
 
-async function tmdbRequest(path, params = {}) {
-  if (!TMDB_KEY.trim()) {
-    throw new Error("Ajoute ta clé TMDB pour charger les affiches.");
-  }
-
-  const url = new URL("https://api.themoviedb.org/3" + path);
-  url.searchParams.set("api_key", TMDB_KEY.trim());
-  url.searchParams.set("language", "fr-FR");
-
-  Object.entries(params).forEach(([key, value]) => {
-    url.searchParams.set(key, value);
-  });
-
-  const response = await fetch(url);
-
-  if (!response.ok) {
-    throw new Error("TMDB a répondu avec le code " + response.status);
-  }
-
-  return response.json();
-}
-
-async function loadCategory(category) {
-  setActive(category);
-  sectionTitle.textContent = titles[category] || "Catalogue";
-  statusBox.textContent = "Chargement du catalogue...";
-  catalogue.innerHTML = "";
-  countBox.textContent = "";
-
-  if (!TMDB_KEY.trim()) {
-    showSetupMessage();
-    return;
-  }
-
-  try {
-    let path;
-    let params = { page: 1 };
-
-    if (category === "movie") {
-      path = "/movie/popular";
-    } else if (category === "tv") {
-      path = "/tv/popular";
-    } else if (category === "anime") {
-      path = "/discover/tv";
-      params.with_origin_country = "JP";
-      params.with_genres = "16";
-      params.sort_by = "popularity.desc";
-    } else {
-      path = "/trending/all/week";
-    }
-
-    const data = await tmdbRequest(path, params);
-    renderCards(data.results, category);
-  } catch (error) {
-    statusBox.textContent = error.message;
-  }
-}
-
-function showSetupMessage() {
-  statusBox.innerHTML =
-    "Le site est prêt, mais le catalogue TMDB n'est pas encore connecté. " +
-    "Ajoute ta clé TMDB dans la configuration du fichier pour afficher les titres et les affiches.";
-}
-
-async function searchTitles(query) {
-  const cleaned = query.trim();
-  if (!cleaned) return;
-
-  sectionTitle.textContent = "Recherche : " + cleaned;
-  statusBox.textContent = "Recherche en cours...";
-  catalogue.innerHTML = "";
-  countBox.textContent = "";
-
-  if (!TMDB_KEY.trim()) {
-    openYouTubeSearch(cleaned);
-    return;
-  }
-
-  try {
-    const data = await tmdbRequest("/search/multi", {
-      query: cleaned,
-      include_adult: "false",
-      page: 1
-    });
-
-    renderCards(
-      (data.results || []).filter(item =>
-        item.media_type === "movie" ||
-        item.media_type === "tv"
-      ),
-      "search"
-    );
-  } catch (error) {
-    statusBox.textContent = error.message;
-  }
+function quickSearch(query, button) {
+  setActive(button);
+  document.getElementById("query").value = "";
+  searchVideos(query);
 }
 
 document.getElementById("searchForm").addEventListener("submit", event => {
   event.preventDefault();
-  searchTitles(document.getElementById("searchInput").value);
+  const query = document.getElementById("query").value.trim();
+
+  if (query) {
+    document.querySelectorAll(".tab").forEach(tab => {
+      tab.classList.remove("active");
+    });
+    searchVideos(query);
+  }
 });
 
-function openYouTubeSearch(query) {
-  const url = "https://www.youtube.com/results?search_query=" +
-    encodeURIComponent(query);
-  window.open(url, "_blank", "noopener,noreferrer");
+async function searchVideos(query) {
+  currentQuery = query;
+  nextPageToken = null;
+  totalShown = 0;
+  results.innerHTML = "";
+  countBox.textContent = "";
+  titleBox.textContent = query;
+  moreButton.hidden = true;
+
+  await fetchVideos(false);
 }
 
-function closePlayer(event) {
-  if (event && event.target !== document.getElementById("player")) return;
-  document.getElementById("frame").src = "";
-  document.getElementById("player").style.display = "none";
+async function loadMore() {
+  if (!loading && nextPageToken) {
+    await fetchVideos(true);
+  }
 }
 
-loadCategory("movie");
+async function fetchVideos(append) {
+  if (loading) return;
+
+  loading = true;
+  moreButton.disabled = true;
+  moreButton.textContent = "Chargement...";
+  statusBox.textContent = "Recherche de vidéos sur YouTube...";
+
+  try {
+    let url = "/api/youtube?q=" + encodeURIComponent(currentQuery);
+
+    if (append && nextPageToken) {
+      url += "&pageToken=" + encodeURIComponent(nextPageToken);
+    }
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (!response.ok || !data.success) {
+      throw new Error(data.error || "La recherche a échoué.");
+    }
+
+    if (!append) results.innerHTML = "";
+
+    if (!data.videos || data.videos.length === 0) {
+      statusBox.textContent = "Aucune vidéo trouvée.";
+      moreButton.hidden = true;
+      return;
+    }
+
+    data.videos.forEach(video => {
+      const card = document.createElement("article");
+      card.className = "card";
+
+      const img = document.createElement("img");
+      img.className = "thumb";
+      img.loading = "lazy";
+      img.alt = video.title || "Miniature vidéo";
+      img.src = video.thumbnail || "";
+      img.onerror = () => {
+        img.style.display = "none";
+      };
+
+      const info = document.createElement("div");
+      info.className = "info";
+      info.innerHTML =
+        "<h3>" + escapeHTML(video.title) + "</h3>" +
+        "<p>" + escapeHTML(video.channelTitle) + "</p>" +
+        "<span class='play'>▶ REGARDER SUR YOUTUBE</span>";
+
+      card.append(img, info);
+
+      card.addEventListener("click", () => {
+        window.open(video.url, "_blank", "noopener,noreferrer");
+      });
+
+      results.appendChild(card);
+    });
+
+    totalShown += data.videos.length;
+    countBox.textContent = totalShown + " vidéos chargées";
+    statusBox.textContent = "";
+    nextPageToken = data.nextPageToken || null;
+    moreButton.hidden = !nextPageToken;
+
+  } catch (error) {
+    statusBox.textContent = error.message +
+      " Vérifie la clé API et le déploiement Vercel.";
+  } finally {
+    loading = false;
+    moreButton.disabled = false;
+    moreButton.textContent = "Charger plus de vidéos";
+  }
+}
+
+searchVideos("tendances musique");
 </script>
 
 </body>
