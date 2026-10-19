@@ -5,808 +5,691 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#080808">
-<meta name="description" content="MADARA TUBE — Ton univers vidéo.">
-<title>MADARA TUBE</title>
+<title>MADARA ANONYMOUS × THOMAS SHELBY TUBE</title>
 
 <style>
 :root {
-  --red: #ff263f;
-  --black: #080808;
+  --red: #ed1025;
+  --bg: #080808;
   --panel: #151515;
-  --text: #ffffff;
-  --muted: #aaaaaa;
+  --muted: #a6a6a6;
 }
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-  background: var(--black);
-  color: var(--text);
+  background: var(--bg);
+  color: white;
   font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
 }
 
-body.intro-active {
-  overflow: hidden;
-}
+button, input { font: inherit; }
 
-button, input {
-  font: inherit;
-}
+button { cursor: pointer; }
 
-button {
-  cursor: pointer;
-}
-
-/* ===== ANIMATION D'ENTRÉE ===== */
-
-#mt-intro {
+#intro {
   position: fixed;
   inset: 0;
-  z-index: 99999;
+  z-index: 9999;
+  background:
+    radial-gradient(ellipse at center, #370009 0%, #100000 40%, #030303 78%);
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse at center,
-      #31080e 0%, #130508 38%, #030303 78%);
-  opacity: 1;
-  visibility: visible;
-  transition: opacity .8s ease, visibility .8s ease;
-}
-
-#mt-intro.finished {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.intro-light {
-  position: absolute;
-  left: 15%;
-  width: 70%;
-  height: 2px;
-  background: var(--red);
-  box-shadow: 0 0 12px var(--red), 0 0 45px var(--red);
-  transform: scaleX(0);
-  animation: lightReveal 1.1s ease-out .2s forwards;
-}
-
-.intro-content {
-  position: relative;
-  z-index: 2;
+  flex-direction: column;
   text-align: center;
-  opacity: 0;
-  transform: scale(.82) translateY(12px);
-  animation: logoReveal 1.2s cubic-bezier(.2,.8,.2,1) .65s forwards;
+  overflow: hidden;
+  animation: introExit 1s ease 5.5s forwards;
 }
 
-.intro-symbol {
-  width: 82px;
-  height: 82px;
-  margin: 0 auto 24px;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(255,38,63,.8);
-  border-radius: 23px;
-  background: linear-gradient(145deg, #31070d, #090909);
-  box-shadow: 0 0 35px rgba(255,38,63,.25),
-              inset 0 0 20px rgba(255,38,63,.12);
-  transform: rotate(-8deg);
+.intro-ring {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border: 1px solid #ed102555;
+  border-radius: 50%;
+  box-shadow: 0 0 45px #ed102522, inset 0 0 35px #ed102522;
+  animation: ringPulse 2s ease-in-out infinite;
 }
 
-.intro-symbol span {
-  color: var(--red);
-  font-size: 48px;
-  font-weight: 900;
-  text-shadow: 0 0 25px rgba(255,38,63,.8);
-  transform: rotate(8deg);
+.intro-logo {
+  color: white;
+  font-size: clamp(65px, 17vw, 115px);
+  font-weight: 1000;
+  letter-spacing: -7px;
+  text-shadow: 0 0 15px #ed1025, 0 0 45px #ed102588;
+  animation: logoEnter 1.3s cubic-bezier(.2,.8,.2,1) both;
 }
 
 .intro-title {
-  margin: 0;
-  font-size: clamp(27px, 7vw, 54px);
+  margin-top: 20px;
+  font-size: clamp(16px, 4vw, 27px);
   font-weight: 900;
-  letter-spacing: .06em;
-  white-space: nowrap;
+  letter-spacing: 3px;
+  animation: fadeUp 1s ease .8s both;
 }
 
-.intro-title span {
-  color: var(--red);
+.intro-title span { color: var(--red); }
+
+.intro-slogan {
+  color: #c5c5c5;
+  margin-top: 13px;
+  font-size: 11px;
+  letter-spacing: 4px;
+  animation: fadeUp 1s ease 1.3s both;
 }
 
-.intro-tagline {
-  margin-top: 15px;
-  color: #b8b8b8;
-  font-size: 10px;
-  letter-spacing: .3em;
-  opacity: 0;
-  animation: taglineReveal .7s ease 1.6s forwards;
-}
-
-.intro-progress {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+.intro-line {
   height: 2px;
-  width: 100%;
-  background: #242424;
-}
-
-.intro-progress span {
-  display: block;
   width: 0;
-  height: 100%;
   background: var(--red);
-  box-shadow: 0 0 12px var(--red);
-  animation: progressRun 4.3s linear forwards;
+  box-shadow: 0 0 15px var(--red);
+  margin-top: 30px;
+  animation: lineGrow 1.5s ease 1.6s forwards;
 }
 
-.particle {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: #ff4659;
-  box-shadow: 0 0 12px var(--red);
-  animation: particleFloat 2.5s ease-in-out infinite alternate;
+.intro-status {
+  margin-top: 17px;
+  color: #aaa;
+  font-size: 10px;
+  letter-spacing: 3px;
+  animation: fadeUp 1s ease 2s both;
 }
 
-@keyframes lightReveal {
-  to { transform: scaleX(1); }
+@keyframes logoEnter {
+  from { opacity: 0; transform: scale(.4) rotateX(60deg); }
+  to { opacity: 1; transform: scale(1) rotateX(0); }
 }
-
-@keyframes logoReveal {
-  0% {
-    opacity: 0;
-    filter: blur(8px);
-    transform: scale(.82) translateY(12px);
-  }
-  70% {
-    opacity: 1;
-    filter: blur(0);
-  }
-  100% {
-    opacity: 1;
-    filter: blur(0);
-    transform: scale(1) translateY(0);
-  }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
-@keyframes taglineReveal {
-  to { opacity: 1; }
+@keyframes ringPulse {
+  50% { transform: scale(1.12); opacity: .45; }
 }
-
-@keyframes progressRun {
-  to { width: 100%; }
+@keyframes lineGrow {
+  to { width: min(300px, 70vw); }
 }
-
-@keyframes particleFloat {
-  from { transform: translateY(0); opacity: .15; }
-  to { transform: translateY(-24px); opacity: .9; }
+@keyframes introExit {
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
 }
-
-/* ===== NAVIGATION ===== */
 
 header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(8,8,8,.96);
-  border-bottom: 1px solid #252525;
-}
-
-.navbar {
-  max-width: 1400px;
-  min-height: 68px;
-  margin: auto;
-  padding: 12px 5%;
+  height: 66px;
+  padding: 0 5%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
+  gap: 15px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: #080808ed;
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid #ffffff0c;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 9px;
-  font-size: 21px;
+  gap: 10px;
   font-weight: 900;
   white-space: nowrap;
 }
 
-.brand-icon {
+.brand-logo {
+  width: 39px;
+  height: 39px;
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 30px;
-  border-radius: 8px;
   background: var(--red);
-  color: white;
-  font-size: 18px;
+  border-radius: 10px;
+  box-shadow: 0 0 18px #ed102533;
+  font-size: 16px;
 }
 
-.brand span {
-  color: var(--red);
-}
+.brand-name { font-size: 16px; }
+.brand-name span { color: var(--red); }
 
 .search {
-  width: min(380px, 42%);
   display: flex;
-  gap: 7px;
+  align-items: center;
+  width: min(360px, 43%);
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 7px;
+  overflow: hidden;
 }
 
 .search input {
+  background: transparent;
+  border: 0;
+  outline: none;
+  color: white;
+  padding: 12px;
   width: 100%;
   min-width: 0;
-  padding: 11px 13px;
-  color: white;
-  background: #191919;
-  border: 1px solid #383838;
-  border-radius: 8px;
-  outline: none;
 }
 
-.search input:focus {
-  border-color: var(--red);
-}
-
-.search button, .red-button {
-  padding: 10px 14px;
+.search button {
   border: 0;
-  border-radius: 8px;
-  color: white;
   background: var(--red);
-  font-weight: bold;
-}
-
-/* ===== ACCUEIL ===== */
-
-main {
-  max-width: 1400px;
-  margin: auto;
-  padding: 24px 5% 60px;
+  color: white;
+  padding: 12px;
 }
 
 .hero {
-  min-height: 260px;
-  padding: clamp(24px, 5vw, 55px);
+  padding: 65px 6% 45px;
+  min-height: 350px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  border-radius: 17px;
-  overflow: hidden;
   background:
-    radial-gradient(ellipse at 85% 25%, rgba(255,38,63,.3), transparent 40%),
-    linear-gradient(110deg, #24080c, #101010 65%, #1c070a);
-  border: 1px solid #40151c;
+    linear-gradient(90deg, #080808 0%, #080808e8 48%, #08080855 100%),
+    radial-gradient(ellipse at 75% 40%, #65000d 0%, #180006 35%, #080808 75%);
+  border-bottom: 1px solid #ffffff0b;
 }
 
-.hero-label {
+.eyebrow {
   color: var(--red);
-  font-size: 12px;
-  font-weight: bold;
-  letter-spacing: .18em;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  margin-bottom: 17px;
 }
 
 .hero h1 {
-  margin: 14px 0 10px;
-  font-size: clamp(29px, 6vw, 50px);
+  max-width: 700px;
+  font-size: clamp(35px, 8vw, 72px);
+  line-height: .98;
+  font-weight: 1000;
+  letter-spacing: -2px;
 }
 
+.hero h1 span { color: var(--red); }
+
 .hero p {
-  max-width: 480px;
-  color: #c4c4c4;
-  line-height: 1.6;
+  margin-top: 20px;
+  color: #c2c2c2;
+  max-width: 460px;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 25px;
+}
+
+.btn {
+  padding: 12px 19px;
+  border: 0;
+  border-radius: 5px;
+  font-weight: 800;
+}
+
+.btn-red { background: var(--red); color: white; }
+.btn-dark { background: #ffffff17; color: white; border: 1px solid #ffffff25; }
+
+main { padding: 30px 5%; }
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 20px;
+}
+
+.tab {
+  background: #191919;
+  border: 1px solid #303030;
+  border-radius: 30px;
+  color: #ddd;
+  padding: 10px 17px;
+  white-space: nowrap;
+}
+
+.tab.active {
+  background: var(--red);
+  border-color: var(--red);
+  color: white;
 }
 
 .section-heading {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  margin: 28px 0 16px;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0 20px;
 }
 
-.section-heading h2 {
-  margin: 0;
-  font-size: 21px;
-}
+.section-heading h2 { font-size: 21px; }
+.section-heading small { color: var(--muted); }
 
-.section-heading span {
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.categories {
-  display: flex;
-  gap: 9px;
-  overflow-x: auto;
-  padding-bottom: 5px;
-}
-
-.category {
-  flex-shrink: 0;
-  padding: 9px 15px;
-  border: 1px solid #333;
-  border-radius: 22px;
-  color: white;
-  background: #191919;
-}
-
-.category.active, .category:hover {
-  background: var(--red);
-  border-color: var(--red);
-}
-
-.video-grid {
+.grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+  gap: 17px 12px;
 }
 
-.video-card {
-  min-width: 0;
-  overflow: hidden;
-  border-radius: 12px;
+.card {
   background: var(--panel);
-  border: 1px solid #252525;
-  transition: transform .2s, border-color .2s;
-}
-
-.video-card:hover {
-  transform: translateY(-3px);
-  border-color: #63202a;
-}
-
-.thumbnail {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  background: #202020;
+  border-radius: 8px;
   overflow: hidden;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
 }
 
-.thumbnail img {
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 7px 25px #ed102522;
+}
+
+.thumb {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 16 / 10;
   object-fit: cover;
   display: block;
-}
-
-.play-overlay {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  background: rgba(0,0,0,.13);
-}
-
-.play-overlay span {
-  width: 46px;
-  height: 46px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: rgba(255,38,63,.94);
-  color: white;
-  font-size: 20px;
-}
-
-.video-info {
-  padding: 13px;
-}
-
-.video-info h3 {
-  margin: 0 0 8px;
-  font-size: 15px;
-  line-height: 1.4;
-}
-
-.video-info p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.video-info button {
-  margin-top: 12px;
-  padding: 8px 11px;
-  border: 1px solid #444;
-  border-radius: 7px;
-  color: white;
   background: #222;
 }
 
-.video-info button:hover {
-  border-color: var(--red);
+.card-info { padding: 11px; }
+
+.card h3 {
+  font-size: 13px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
 }
 
-.empty {
-  padding: 30px;
+.card p {
+  font-size: 11px;
   color: var(--muted);
-  text-align: center;
+  margin-top: 7px;
 }
 
-/* ===== LECTEUR ===== */
+.play-label {
+  display: inline-block;
+  color: #ff5967;
+  font-size: 10px;
+  font-weight: bold;
+  margin-top: 10px;
+}
 
-.player-section {
-  margin-top: 28px;
+.notice {
+  color: #aaa;
+  font-size: 12px;
+  line-height: 1.6;
+  padding: 20px 0;
+}
+
+#status {
+  color: #ccc;
+  padding: 25px 0;
+  font-size: 13px;
+}
+
+#player {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: #000e;
+  display: none;
+  align-items: center;
+  justify-content: center;
   padding: 15px;
-  background: #121212;
-  border: 1px solid #292929;
-  border-radius: 12px;
 }
 
-.player-section h2 {
-  font-size: 18px;
+.player-box {
+  width: min(850px, 100%);
+  background: #151515;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.player {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: #000;
+.player-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px;
+  gap: 10px;
+}
+
+.player-top button {
+  background: var(--red);
   border: 0;
-  border-radius: 8px;
+  color: white;
+  padding: 9px 13px;
+  border-radius: 5px;
+}
+
+#frame {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: 0;
+  display: block;
+  background: #000;
 }
 
 footer {
-  padding: 25px 5%;
-  border-top: 1px solid #252525;
-  color: #888;
+  padding: 30px 5%;
+  color: #777;
   text-align: center;
-  font-size: 12px;
+  border-top: 1px solid #ffffff12;
+  font-size: 11px;
+  line-height: 1.8;
 }
 
-[hidden] {
-  display: none !important;
-}
-
-@media (max-width: 850px) {
-  .video-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 520px) {
-  .navbar {
-    flex-wrap: wrap;
-  }
-  .brand {
-    font-size: 18px;
-  }
-  .search {
-    width: 100%;
-    order: 2;
-  }
-  main {
-    padding-top: 15px;
-  }
-  .hero {
-    min-height: 220px;
-  }
-  .video-grid {
-    gap: 12px;
-  }
-  .video-info {
-    padding: 10px;
-  }
-  .video-info h3 {
-    font-size: 13px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    transition-duration: .01ms !important;
-  }
+@media (max-width: 480px) {
+  header { padding: 0 12px; gap: 8px; }
+  .brand-name { font-size: 12px; }
+  .brand-logo { width: 34px; height: 34px; }
+  .search { width: 43%; }
+  .search input { padding: 10px 7px; font-size: 12px; }
+  .search button { padding: 10px; }
+  .hero { padding: 55px 20px 40px; }
+  main { padding: 25px 13px; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 }
 </style>
 </head>
 
-<body class="intro-active">
+<body>
 
-<!-- INTRO CINÉMATIQUE -->
-<div id="mt-intro" role="status" aria-label="MADARA TUBE démarre">
-  <div class="intro-light"></div>
-
-  <div class="intro-content">
-    <div class="intro-symbol"><span>M</span></div>
-    <h1 class="intro-title">MADARA <span>TUBE</span></h1>
-    <div class="intro-tagline">TON UNIVERS VIDÉO</div>
-  </div>
-
-  <div class="intro-progress"><span></span></div>
+<div id="intro">
+  <div class="intro-ring"></div>
+  <div class="intro-logo">MXST</div>
+  <div class="intro-title">MADARA <span>×</span> SHELBY</div>
+  <div class="intro-slogan">TON UNIVERS. SANS LIMITES.</div>
+  <div class="intro-line"></div>
+  <div class="intro-status">INITIALISATION DU SYSTÈME...</div>
 </div>
 
 <header>
-  <nav class="navbar">
-    <div class="brand">
-      <div class="brand-icon">▶</div>
-      <div>MADARA <span>TUBE</span></div>
-    </div>
+  <div class="brand">
+    <div class="brand-logo">MX</div>
+    <div class="brand-name">MADARA <span>×</span> SHELBY</div>
+  </div>
 
-    <form class="search" id="search-form">
-      <input id="search-input" type="search"
-        placeholder="Rechercher une vidéo..."
-        aria-label="Rechercher une vidéo">
-      <button type="submit">Chercher</button>
-    </form>
-  </nav>
+  <form class="search" id="searchForm">
+    <input id="searchInput" type="search" placeholder="Rechercher..." aria-label="Rechercher des vidéos">
+    <button type="submit">⌕</button>
+  </form>
 </header>
 
+<section class="hero">
+  <div class="eyebrow">MADARA ANONYMOUS PRESENTS</div>
+  <h1>TON UNIVERS.<br><span>SANS LIMITES.</span></h1>
+  <p>
+    Films, séries, documentaires, animes et vidéos.
+    Découvre ton prochain univers.
+  </p>
+  <div class="actions">
+    <button class="btn btn-red" onclick="loadCategory('movie')">▶ Explorer les films</button>
+    <button class="btn btn-dark" onclick="loadCategory('tv')">Découvrir les séries</button>
+  </div>
+</section>
+
 <main>
-  <section class="hero">
-    <div class="hero-label">BIENVENUE SUR MADARA TUBE</div>
-    <h1>Ton univers vidéo.</h1>
-    <p>
-      Découvre des vidéos, explore tes centres d'intérêt
-      et profite d'une expérience vidéo adaptée à ton écran.
-    </p>
-    <button class="red-button" id="explore-button">
-      ▶ Explorer les vidéos
-    </button>
-  </section>
+  <nav class="tabs" aria-label="Catégories">
+    <button class="tab active" data-category="movie" onclick="loadCategory('movie')">Films</button>
+    <button class="tab" data-category="tv" onclick="loadCategory('tv')">Séries</button>
+    <button class="tab" data-category="anime" onclick="loadCategory('anime')">Animes</button>
+    <button class="tab" data-category="trending" onclick="loadCategory('trending')">Tendances</button>
+  </nav>
 
-  <section>
-    <div class="section-heading">
-      <h2>Explorer</h2>
-      <span id="video-count">Vidéos de démonstration</span>
-    </div>
+  <div class="section-heading">
+    <h2 id="sectionTitle">À découvrir</h2>
+    <small id="count"></small>
+  </div>
 
-    <div class="categories" id="categories">
-      <button class="category active" data-category="Tout">Tout</button>
-      <button class="category" data-category="Musique">Musique</button>
-      <button class="category" data-category="Gaming">Gaming</button>
-      <button class="category" data-category="Cinéma">Cinéma</button>
-      <button class="category" data-category="Technologie">Technologie</button>
-    </div>
-  </section>
+  <div id="status">Préparation du catalogue...</div>
+  <section class="grid" id="catalogue"></section>
 
-  <section>
-    <div class="section-heading">
-      <h2>À découvrir</h2>
-      <span>Catalogue de démonstration</span>
-    </div>
-
-    <div class="video-grid" id="video-grid"></div>
-    <div class="empty" id="empty-message" hidden>
-      Aucune vidéo trouvée pour cette recherche.
-    </div>
-  </section>
-
-  <section class="player-section" id="player-section" hidden>
-    <div class="section-heading">
-      <h2 id="player-title">Lecture vidéo</h2>
-      <button class="category" id="close-player">Fermer</button>
-    </div>
-    <iframe class="player" id="video-player"
-      title="Lecteur vidéo MADARA TUBE"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen
-      referrerpolicy="strict-origin-when-cross-origin"></iframe>
-    <p style="color:#aaa;font-size:12px">
-      Vidéo intégrée depuis YouTube. La disponibilité dépend de la vidéo
-      et des autorisations définies par son propriétaire.
-    </p>
-  </section>
+  <p class="notice">
+    Les affiches et informations du catalogue sont fournies par TMDB.
+    MADARA X SHELBY TUBE n'est ni affilié à YouTube ni à TMDB.
+    La disponibilité des vidéos dépend de leurs propriétaires.
+  </p>
 </main>
 
+<div id="player" onclick="closePlayer(event)">
+  <div class="player-box">
+    <div class="player-top">
+      <strong id="playerTitle">Vidéo</strong>
+      <button onclick="closePlayer()">Fermer ✕</button>
+    </div>
+    <iframe id="frame" allowfullscreen
+      referrerpolicy="strict-origin-when-cross-origin"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+    </iframe>
+  </div>
+</div>
+
 <footer>
-  MADARA TUBE © 2026 — TON UNIVERS VIDÉO.
+  <strong>MADARA ANONYMOUS × THOMAS SHELBY</strong><br>
+  TON UNIVERS. SANS LIMITES.<br>
+  Les contenus restent la propriété de leurs ayants droit.
 </footer>
 
 <script>
-/* ===== INTRO : 4,5 SECONDES ===== */
-(function () {
-  const intro = document.getElementById("mt-intro");
+/*
+  Configuration :
+  1. Ajoute ta clé TMDB dans la constante ci-dessous si tu en as une.
+  2. La clé YouTube ne doit JAMAIS être placée dans ce fichier public.
+  3. La recherche YouTube utilisera ensuite une fonction serveur Vercel.
+*/
 
-  function finishIntro() {
-    if (!intro) return;
-    intro.classList.add("finished");
-    document.body.classList.remove("intro-active");
-    setTimeout(() => intro.remove(), 900);
-  }
+const TMDB_KEY = ""; // Clé TMDB facultative pour le catalogue
 
-  if (intro) {
-    for (let i = 0; i < 22; i++) {
-      const particle = document.createElement("i");
-      particle.className = "particle";
-      particle.style.left = (Math.random() * 100) + "%";
-      particle.style.top = (Math.random() * 100) + "%";
-      particle.style.animationDelay = (Math.random() * 2) + "s";
-      intro.appendChild(particle);
-    }
+const catalogue = document.getElementById("catalogue");
+const statusBox = document.getElementById("status");
+const sectionTitle = document.getElementById("sectionTitle");
+const countBox = document.getElementById("count");
 
-    const reduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
+const titles = {
+  movie: "Films populaires",
+  tv: "Séries populaires",
+  anime: "Animes",
+  trending: "Tendances",
+  search: "Résultats de recherche"
+};
 
-    if (reduced) {
-      finishIntro();
-    } else {
-      setTimeout(finishIntro, 4500);
-    }
-  }
-})();
-
-/* ===== CATALOGUE DE DÉMONSTRATION ===== */
-const videos = [
-  {
-    id: "aqz-KE-bpKQ",
-    title: "Découverte vidéo — Big Buck Bunny",
-    channel: "Blender Foundation",
-    category: "Cinéma",
-    thumbnail: "https://img.youtube.com/vi/aqz-KE-bpKQ/hqdefault.jpg"
-  },
-  {
-    id: "ScMzIvxBSi4",
-    title: "Exemple vidéo de démonstration",
-    channel: "Démonstration",
-    category: "Technologie",
-    thumbnail: "https://img.youtube.com/vi/ScMzIvxBSi4/hqdefault.jpg"
-  },
-  {
-    id: "jNQXAC9IVRw",
-    title: "Me at the zoo — vidéo historique",
-    channel: "YouTube",
-    category: "Cinéma",
-    thumbnail: "https://img.youtube.com/vi/jNQXAC9IVRw/hqdefault.jpg"
-  },
-  {
-    id: "M7lc1UVf-VE",
-    title: "Démonstration du lecteur YouTube",
-    channel: "YouTube Developers",
-    category: "Technologie",
-    thumbnail: "https://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg"
-  }
-];
-
-const grid = document.getElementById("video-grid");
-const emptyMessage = document.getElementById("empty-message");
-const searchInput = document.getElementById("search-input");
-const playerSection = document.getElementById("player-section");
-const player = document.getElementById("video-player");
-const playerTitle = document.getElementById("player-title");
-
-let activeCategory = "Tout";
-
-function renderVideos() {
-  const query = searchInput.value.trim().toLowerCase();
-
-  const filtered = videos.filter(video => {
-    const matchesCategory =
-      activeCategory === "Tout" ||
-      video.category === activeCategory;
-
-    const matchesSearch =
-      video.title.toLowerCase().includes(query) ||
-      video.channel.toLowerCase().includes(query) ||
-      video.category.toLowerCase().includes(query);
-
-    return matchesCategory && matchesSearch;
+function setActive(category) {
+  document.querySelectorAll(".tab").forEach(button => {
+    button.classList.toggle(
+      "active",
+      button.dataset.category === category
+    );
   });
+}
 
-  grid.innerHTML = "";
+function escapeHtml(value = "") {
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  })[char]);
+}
 
-  filtered.forEach(video => {
+function posterUrl(path) {
+  return path
+    ? "https://image.tmdb.org/t/p/w500" + path
+    : "";
+}
+
+function renderCards(items, type = "movie") {
+  catalogue.innerHTML = "";
+
+  if (!items || items.length === 0) {
+    statusBox.textContent = "Aucun résultat disponible.";
+    countBox.textContent = "";
+    return;
+  }
+
+  statusBox.textContent = "";
+  countBox.textContent = items.length + " titres";
+
+  items.forEach(item => {
+    const title = item.title || item.name || "Sans titre";
+    const image = posterUrl(item.poster_path || item.backdrop_path);
+    const date = (item.release_date || item.first_air_date || "").slice(0, 4);
     const card = document.createElement("article");
-    card.className = "video-card";
-
-    const thumbnail = document.createElement("div");
-    thumbnail.className = "thumbnail";
+    card.className = "card";
 
     const img = document.createElement("img");
-    img.src = video.thumbnail;
-    img.alt = "Miniature : " + video.title;
+    img.className = "thumb";
+    img.alt = title;
     img.loading = "lazy";
+    img.src = image || "https://placehold.co/500x300/151515/ffffff?text=MADARA+TUBE";
     img.onerror = () => {
-      img.style.display = "none";
-      thumbnail.style.background =
-        "linear-gradient(135deg,#25080c,#111)";
+      img.src = "https://placehold.co/500x300/151515/ffffff?text=MADARA+TUBE";
     };
 
-    const overlay = document.createElement("div");
-    overlay.className = "play-overlay";
-
-    const playIcon = document.createElement("span");
-    playIcon.textContent = "▶";
-    overlay.appendChild(playIcon);
-
-    thumbnail.append(img, overlay);
-
     const info = document.createElement("div");
-    info.className = "video-info";
+    info.className = "card-info";
+    info.innerHTML =
+      "<h3>" + escapeHtml(title) + "</h3>" +
+      "<p>" + escapeHtml(date || "Catalogue") + "</p>" +
+      "<span class='play-label'>▶ DÉTAILS</span>";
 
-    const title = document.createElement("h3");
-    title.textContent = video.title;
+    card.append(img, info);
 
-    const details = document.createElement("p");
-    details.textContent =
-      video.channel + " • " + video.category;
-
-    const playButton = document.createElement("button");
-    playButton.textContent = "▶ Regarder";
-    playButton.addEventListener("click", () => playVideo(video));
-
-    info.append(title, details, playButton);
-    card.append(thumbnail, info);
-
-    thumbnail.style.cursor = "pointer";
-    thumbnail.addEventListener("click", () => playVideo(video));
-
-    grid.appendChild(card);
-  });
-
-  emptyMessage.hidden = filtered.length !== 0;
-  document.getElementById("video-count").textContent =
-    filtered.length + " vidéo(s)";
-}
-
-function playVideo(video) {
-  playerTitle.textContent = video.title;
-  player.src =
-    "https://www.youtube-nocookie.com/embed/" +
-    encodeURIComponent(video.id) +
-    "?autoplay=1&rel=0";
-
-  playerSection.hidden = false;
-  playerSection.scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
-}
-
-document.getElementById("search-form").addEventListener(
-  "submit",
-  function (event) {
-    event.preventDefault();
-    renderVideos();
-  }
-);
-
-searchInput.addEventListener("input", renderVideos);
-
-document.getElementById("categories").addEventListener(
-  "click",
-  function (event) {
-    const button = event.target.closest("[data-category]");
-    if (!button) return;
-
-    activeCategory = button.dataset.category;
-
-    document.querySelectorAll(".category[data-category]")
-      .forEach(item => item.classList.remove("active"));
-
-    button.classList.add("active");
-    renderVideos();
-  }
-);
-
-document.getElementById("explore-button").addEventListener(
-  "click",
-  function () {
-    document.getElementById("categories").scrollIntoView({
-      behavior: "smooth",
-      block: "center"
+    card.addEventListener("click", () => {
+      // Ouvre la recherche YouTube pour trouver une bande-annonce
+      // ou une vidéo officiellement publiée par son propriétaire.
+      const query = title + " bande annonce officielle";
+      openYouTubeSearch(query);
     });
-  }
-);
 
-document.getElementById("close-player").addEventListener(
-  "click",
-  function () {
-    player.src = "";
-    playerSection.hidden = true;
-  }
-);
+    catalogue.appendChild(card);
+  });
+}
 
-renderVideos();
+async function tmdbRequest(path, params = {}) {
+  if (!TMDB_KEY.trim()) {
+    throw new Error("Ajoute ta clé TMDB pour charger les affiches.");
+  }
+
+  const url = new URL("https://api.themoviedb.org/3" + path);
+  url.searchParams.set("api_key", TMDB_KEY.trim());
+  url.searchParams.set("language", "fr-FR");
+
+  Object.entries(params).forEach(([key, value]) => {
+    url.searchParams.set(key, value);
+  });
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error("TMDB a répondu avec le code " + response.status);
+  }
+
+  return response.json();
+}
+
+async function loadCategory(category) {
+  setActive(category);
+  sectionTitle.textContent = titles[category] || "Catalogue";
+  statusBox.textContent = "Chargement du catalogue...";
+  catalogue.innerHTML = "";
+  countBox.textContent = "";
+
+  if (!TMDB_KEY.trim()) {
+    showSetupMessage();
+    return;
+  }
+
+  try {
+    let path;
+    let params = { page: 1 };
+
+    if (category === "movie") {
+      path = "/movie/popular";
+    } else if (category === "tv") {
+      path = "/tv/popular";
+    } else if (category === "anime") {
+      path = "/discover/tv";
+      params.with_origin_country = "JP";
+      params.with_genres = "16";
+      params.sort_by = "popularity.desc";
+    } else {
+      path = "/trending/all/week";
+    }
+
+    const data = await tmdbRequest(path, params);
+    renderCards(data.results, category);
+  } catch (error) {
+    statusBox.textContent = error.message;
+  }
+}
+
+function showSetupMessage() {
+  statusBox.innerHTML =
+    "Le site est prêt, mais le catalogue TMDB n'est pas encore connecté. " +
+    "Ajoute ta clé TMDB dans la configuration du fichier pour afficher les titres et les affiches.";
+}
+
+async function searchTitles(query) {
+  const cleaned = query.trim();
+  if (!cleaned) return;
+
+  sectionTitle.textContent = "Recherche : " + cleaned;
+  statusBox.textContent = "Recherche en cours...";
+  catalogue.innerHTML = "";
+  countBox.textContent = "";
+
+  if (!TMDB_KEY.trim()) {
+    openYouTubeSearch(cleaned);
+    return;
+  }
+
+  try {
+    const data = await tmdbRequest("/search/multi", {
+      query: cleaned,
+      include_adult: "false",
+      page: 1
+    });
+
+    renderCards(
+      (data.results || []).filter(item =>
+        item.media_type === "movie" ||
+        item.media_type === "tv"
+      ),
+      "search"
+    );
+  } catch (error) {
+    statusBox.textContent = error.message;
+  }
+}
+
+document.getElementById("searchForm").addEventListener("submit", event => {
+  event.preventDefault();
+  searchTitles(document.getElementById("searchInput").value);
+});
+
+function openYouTubeSearch(query) {
+  const url = "https://www.youtube.com/results?search_query=" +
+    encodeURIComponent(query);
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
+function closePlayer(event) {
+  if (event && event.target !== document.getElementById("player")) return;
+  document.getElementById("frame").src = "";
+  document.getElementById("player").style.display = "none";
+}
+
+loadCategory("movie");
 </script>
+
 </body>
 </html>
