@@ -1,12 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#08090d">
+  <meta name="description" content="MADARA X SHELBY TUBE — Ton univers vidéo. Sans limites.">
+
+  <!-- Manifest PWA -->
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="icon-192.png" type="image/png">
-  <meta name="description" content="MADARA X SHELBY TUBE — Ton univers vidéo.">
+
   <title>MADARA X SHELBY TUBE</title>
 
   <style>
@@ -14,19 +17,21 @@
       --red: #e50914;
       --bg: #08090d;
       --panel: #15171e;
-      --muted: #a5a7b0;
-      --border: #282a33;
+      --text: #fff;
+      --muted: #a7a9b3;
     }
 
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      background: var(--bg);
-      color: white;
       font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
     }
 
     button, input {
@@ -37,43 +42,44 @@
       cursor: pointer;
     }
 
-    /* ANIMATION D'ENTRÉE */
+    /* Animation d'entrée */
     #intro {
       position: fixed;
       inset: 0;
-      z-index: 10000;
+      z-index: 9999;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
       background:
-        radial-gradient(ellipse, #39090e 0%, #08090d 65%);
-      transition: opacity .8s ease, visibility .8s ease;
+        radial-gradient(circle, #4c0710 0%, #180308 35%, #08090d 75%);
+      transition: opacity .7s ease, visibility .7s ease;
     }
 
     #intro.hide {
       opacity: 0;
       visibility: hidden;
-      pointer-events: none;
     }
 
     .intro-logo {
-      width: 104px;
-      height: 104px;
-      display: grid;
-      place-items: center;
+      width: 100px;
+      height: 100px;
       border: 3px solid var(--red);
       border-radius: 28px;
-      font-size: 35px;
-      font-weight: 1000;
-      box-shadow: 0 0 35px #e5091466;
-      animation: pulse 1.5s infinite alternate;
+      display: grid;
+      place-items: center;
+      font-size: 38px;
+      font-weight: 900;
+      color: white;
+      box-shadow: 0 0 35px #e5091477;
+      animation: pulse 1.3s infinite alternate;
     }
 
     .intro-title {
-      margin-top: 26px;
-      font-size: clamp(22px, 6vw, 40px);
-      font-weight: 1000;
+      margin-top: 24px;
+      font-size: clamp(22px, 6vw, 36px);
+      font-weight: 900;
+      letter-spacing: 2px;
       text-align: center;
     }
 
@@ -81,59 +87,42 @@
       color: var(--red);
     }
 
-    .intro-slogan {
-      margin: 14px 20px;
-      color: #ccc;
-      letter-spacing: 3px;
+    .intro-subtitle {
+      margin-top: 12px;
+      color: #c7c7ce;
       font-size: 11px;
+      letter-spacing: 3px;
       text-align: center;
-    }
-
-    .intro-line {
-      width: 170px;
-      height: 3px;
-      margin-top: 20px;
-      background: #333;
-      overflow: hidden;
-    }
-
-    .intro-line::after {
-      content: "";
-      display: block;
-      width: 40%;
-      height: 100%;
-      background: var(--red);
-      animation: load 2s ease forwards;
     }
 
     @keyframes pulse {
       from { transform: scale(.94); }
-      to { transform: scale(1.05); }
+      to { transform: scale(1.06); }
     }
 
-    @keyframes load {
-      to { width: 100%; }
-    }
-
-    /* EN-TÊTE */
+    /* En-tête */
     header {
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 100;
+      background: #08090df2;
+      border-bottom: 1px solid #ffffff12;
+      backdrop-filter: blur(14px);
+      padding: 14px 5%;
+    }
+
+    .topbar {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 14px 4%;
-      background: #08090df2;
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(14px);
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
     .brand {
-      flex-shrink: 0;
-      font-size: 17px;
-      font-weight: 1000;
-      line-height: 1.3;
+      font-size: 20px;
+      font-weight: 900;
+      white-space: nowrap;
     }
 
     .brand span {
@@ -143,18 +132,19 @@
     .search {
       display: flex;
       flex: 1;
-      max-width: 650px;
-      margin-left: auto;
+      max-width: 520px;
+      min-width: 210px;
+      gap: 8px;
     }
 
     .search input {
       width: 100%;
       min-width: 0;
-      padding: 12px 14px;
+      border: 1px solid #30313b;
+      border-radius: 24px;
+      padding: 12px 16px;
+      background: #171820;
       color: white;
-      background: #171920;
-      border: 1px solid #333640;
-      border-radius: 12px 0 0 12px;
       outline: none;
     }
 
@@ -162,349 +152,515 @@
       border-color: var(--red);
     }
 
-    .search button {
-      padding: 0 17px;
-      color: white;
-      background: var(--red);
+    .search button, .api-btn {
       border: 0;
-      border-radius: 0 12px 12px 0;
+      border-radius: 22px;
+      background: var(--red);
+      color: white;
+      padding: 11px 16px;
       font-weight: bold;
     }
 
-    /* CONTENU */
     main {
-      width: min(1400px, 100%);
+      max-width: 1500px;
       margin: auto;
-      padding: 20px 4% 45px;
+      padding: 0 5% 40px;
     }
 
+    /* Bannière */
     .hero {
-      position: relative;
-      overflow: hidden;
-      padding: clamp(25px, 5vw, 55px);
-      border: 1px solid #45161b;
-      border-radius: 22px;
+      min-height: 300px;
+      margin: 25px 0;
+      border-radius: 20px;
+      padding: clamp(25px, 6vw, 55px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       background:
-        radial-gradient(ellipse at right, #70101899, transparent 60%),
-        linear-gradient(120deg, #191117, #0c0d12);
+        linear-gradient(90deg, #08090df5, #08090d66),
+        radial-gradient(circle at 80% 35%, #8e101c, #29070d 45%, #101116);
+      border: 1px solid #ffffff12;
+      overflow: hidden;
     }
 
-    .hero-tag {
-      color: #ff6870;
-      font-size: 11px;
+    .hero-label {
+      color: #ff5360;
+      font-size: 12px;
       font-weight: bold;
       letter-spacing: 3px;
     }
 
     .hero h1 {
-      max-width: 650px;
-      margin: 14px 0;
-      font-size: clamp(28px, 6vw, 53px);
+      margin-top: 14px;
+      font-size: clamp(30px, 6vw, 56px);
       line-height: 1.05;
+      font-weight: 900;
     }
 
     .hero p {
-      max-width: 520px;
-      color: #c0c0c8;
-      line-height: 1.6;
+      max-width: 550px;
+      color: #d1d1d8;
+      line-height: 1.7;
+      margin-top: 15px;
     }
 
     .hero button {
-      padding: 12px 18px;
-      margin-top: 10px;
-      color: white;
-      background: var(--red);
+      align-self: flex-start;
+      margin-top: 22px;
+      padding: 12px 22px;
       border: 0;
-      border-radius: 10px;
+      border-radius: 7px;
+      background: var(--red);
+      color: white;
       font-weight: bold;
     }
 
+    /* Catégories */
     .categories {
       display: flex;
-      gap: 9px;
+      gap: 10px;
       overflow-x: auto;
-      padding: 20px 0;
-      scrollbar-width: thin;
+      padding: 8px 0 20px;
     }
 
-    .category {
+    .categories button {
       flex-shrink: 0;
-      padding: 10px 15px;
-      color: white;
-      background: #171920;
-      border: 1px solid var(--border);
+      border: 1px solid #353640;
       border-radius: 22px;
+      padding: 10px 18px;
+      background: var(--panel);
+      color: white;
     }
 
-    .category.active,
-    .category:hover {
+    .categories button.active,
+    .categories button:hover {
       background: var(--red);
       border-color: var(--red);
     }
 
-    .section-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin: 12px 0 17px;
-    }
-
-    .section-head h2 {
-      margin: 0;
+    .section-title {
       font-size: 21px;
+      margin: 15px 0;
     }
 
     #status {
       color: var(--muted);
-      font-size: 12px;
+      margin: 12px 0 20px;
+      font-size: 14px;
     }
 
+    /* Cartes vidéo */
     .videos {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 22px 15px;
+      grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+      gap: 18px 13px;
     }
 
     .video-card {
       min-width: 0;
-      overflow: hidden;
       cursor: pointer;
-      border-radius: 12px;
-      background: transparent;
-      transition: transform .2s;
+      transition: transform .2s ease;
     }
 
     .video-card:hover {
-      transform: translateY(-3px);
+      transform: translateY(-4px);
     }
 
     .thumbnail {
       position: relative;
       aspect-ratio: 16 / 9;
       overflow: hidden;
-      background: var(--panel);
-      border-radius: 12px;
+      border-radius: 10px;
+      background: #1b1c24;
     }
 
     .thumbnail img {
-      display: block;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
-    .play-overlay {
+    .play-icon {
       position: absolute;
       inset: 0;
       display: grid;
       place-items: center;
-      background: #0005;
-      opacity: 0;
-      transition: opacity .2s;
+      font-size: 32px;
+      background: #00000022;
+      text-shadow: 0 2px 12px #000;
     }
 
-    .play-overlay span {
-      display: grid;
-      width: 48px;
-      height: 48px;
-      place-items: center;
-      background: var(--red);
-      border-radius: 50%;
-      font-size: 20px;
-    }
-
-    .video-card:hover .play-overlay {
-      opacity: 1;
-    }
-
-    .video-info {
-      padding: 10px 2px;
-    }
-
-    .video-info h3 {
-      display: -webkit-box;
-      overflow: hidden;
-      margin: 0 0 7px;
+    .video-card h3 {
+      margin-top: 9px;
       font-size: 14px;
       line-height: 1.4;
+      display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
-    .video-info p {
-      margin: 0;
+    .video-card p {
+      margin-top: 5px;
       color: var(--muted);
       font-size: 12px;
+      line-height: 1.4;
     }
 
-    .load-more {
-      display: block;
-      margin: 30px auto 10px;
-      padding: 13px 24px;
-      color: white;
-      background: var(--red);
-      border: 0;
-      border-radius: 10px;
-      font-weight: bold;
-    }
-
-    .load-more:disabled {
-      opacity: .45;
-      cursor: not-allowed;
-    }
-
-    /* LECTEUR INTÉGRÉ */
+    /* Lecteur intégré */
     #playerSection {
       display: none;
-      margin-bottom: 25px;
+      margin: 25px 0;
       padding: 15px;
       background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-    }
-
-    #playerSection.active {
-      display: block;
+      border-radius: 15px;
+      border: 1px solid #ffffff12;
     }
 
     .player-top {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 15px;
+      gap: 10px;
+      margin-bottom: 12px;
     }
 
-    .back-button {
-      padding: 10px 14px;
+    .player-top h2 {
+      font-size: 17px;
+    }
+
+    .close-player {
+      background: #30313b;
+      border: 0;
+      border-radius: 8px;
       color: white;
-      background: var(--red);
-      border: 0;
-      border-radius: 9px;
+      padding: 8px 12px;
     }
 
-    #playerFrame {
-      width: 100%;
+    .player-frame {
+      position: relative;
       aspect-ratio: 16 / 9;
-      border: 0;
-      border-radius: 10px;
       background: black;
+      border-radius: 10px;
+      overflow: hidden;
     }
 
-    #playerTitle {
-      margin: 14px 0 7px;
-      font-size: 19px;
+    .player-frame iframe {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+      border: 0;
     }
 
-    #playerChannel {
-      color: var(--muted);
-      font-size: 13px;
+    .player-title {
+      margin-top: 12px;
+      line-height: 1.5;
     }
 
-    .empty {
-      grid-column: 1 / -1;
-      padding: 35px 15px;
-      color: var(--muted);
-      text-align: center;
+    .more {
+      display: block;
+      margin: 28px auto;
+      padding: 12px 24px;
+      border: 1px solid #41424c;
+      border-radius: 24px;
+      color: white;
       background: var(--panel);
-      border-radius: 12px;
-      line-height: 1.6;
+    }
+
+    .more:disabled {
+      opacity: .5;
+      cursor: wait;
     }
 
     footer {
-      padding: 24px 5%;
-      color: #888;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid #ffffff12;
+      padding: 25px 5%;
       text-align: center;
+      color: var(--muted);
       font-size: 12px;
-      line-height: 1.7;
+      line-height: 1.8;
     }
 
-    @media (max-width: 900px) {
-      .videos {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 600px) {
-      header {
-        flex-wrap: wrap;
-        padding: 12px 4%;
-      }
-
-      .brand {
-        font-size: 15px;
-      }
-
-      .search {
-        flex-basis: 100%;
-        max-width: none;
-        order: 2;
-      }
-
-      main {
-        padding-top: 14px;
-      }
-
+    @media (max-width: 550px) {
+      header { padding: 12px 4%; }
+      main { padding: 0 4% 30px; }
+      .topbar { gap: 12px; }
+      .brand { width: 100%; }
+      .search { max-width: none; }
+      .search button { padding: 10px 13px; }
+      .hero { min-height: 250px; }
       .videos {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 17px 10px;
-      }
-
-      .video-info h3 {
-        font-size: 13px;
-      }
-
-      .hero {
-        padding: 25px 20px;
-      }
-
-      .section-head h2 {
-        font-size: 18px;
+        gap: 16px 10px;
       }
     }
   </style>
 </head>
 
 <body>
-
-  <!-- ANIMATION D'ENTRÉE -->
   <div id="intro">
     <div class="intro-logo">MX</div>
-    <div class="intro-title">MADARA <span>× SHELBY</span></div>
-    <div class="intro-slogan">TON UNIVERS VIDÉO. SANS LIMITES.</div>
-    <div class="intro-line"></div>
+    <div class="intro-title">MADARA <span>X SHELBY</span></div>
+    <div class="intro-subtitle">TON UNIVERS VIDÉO. SANS LIMITES.</div>
   </div>
 
   <header>
-    <div class="brand">MADARA <span>× SHELBY TUBE</span></div>
+    <div class="topbar">
+      <div class="brand">MADARA <span>X SHELBY</span> TUBE</div>
 
-    <form class="search" id="searchForm">
-      <input
-        id="searchInput"
-        type="search"
-        placeholder="Rechercher des vidéos..."
-        aria-label="Rechercher des vidéos"
-        maxlength="150"
-        required>
-      <button type="submit">Rechercher</button>
-    </form>
+      <form class="search" id="searchForm">
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Rechercher une vidéo..."
+          aria-label="Rechercher une vidéo"
+          required
+        >
+        <button type="submit">Rechercher</button>
+      </form>
+    </div>
   </header>
 
   <main>
     <section class="hero">
-      <div class="hero-tag">MADARA ORIGINAL EXPERIENCE</div>
+      <div class="hero-label">BIENVENUE DANS TON UNIVERS</div>
       <h1>TON UNIVERS.<br>SANS LIMITES.</h1>
       <p>
-        Musique, gaming, anime, sport et découvertes :
-        retrouve tes vidéos dans une seule interface.
+        Découvre des vidéos, des créateurs et des contenus
+        qui te passionnent, dans une interface conçue pour toi.
       </p>
-      <button type="button" onclick="searchVideos('tendances musique')">
-        ▶ Découvrir les vidéos
-      </button>
+      <button id="discoverBtn">Découvrir les vidéos ▶</button>
     </section>
 
     <nav class="categories" aria-label="Catégories vidéo">
-      <button class="category active" data-query="tendances musique">Tendances</button>
-      <button class="category" data-query="musique africaine">Musique</button>
-      <button
+      <button class="active" data-query="tendances vidéos françaises">🔥 Tendances</button>
+      <button data-query="films bandes annonces français">🎬 Films</button>
+      <button data-query="anime français">🍥 Animes</button>
+      <button data-query="clips musique français">🎵 Musique</button>
+      <button data-query="football meilleurs moments">⚽ Football</button>
+      <button data-query="gaming gameplay français">🎮 Gaming</button>
+    </nav>
+
+    <section id="playerSection">
+      <div class="player-top">
+        <h2>Lecture vidéo</h2>
+        <button class="close-player" id="closePlayer">✕ Fermer</button>
+      </div>
+
+      <div class="player-frame">
+        <iframe
+          id="videoPlayer"
+          title="Lecteur vidéo"
+          src="about:blank"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
+
+      <h3 class="player-title" id="playingTitle"></h3>
+    </section>
+
+    <h2 class="section-title" id="sectionTitle">🔥 Vidéos à découvrir</h2>
+    <p id="status" role="status">Chargement des vidéos...</p>
+
+    <section class="videos" id="videoGrid"></section>
+
+    <button class="more" id="loadMore" hidden>
+      Charger plus de vidéos
+    </button>
+  </main>
+
+  <footer>
+    <strong>MADARA X SHELBY TUBE</strong><br>
+    Ton univers vidéo. Sans limites.<br>
+    Les vidéos sont fournies par YouTube via son API officielle.
+    Les droits sur les contenus appartiennent à leurs propriétaires.
+  </footer>
+
+  <script>
+    const grid = document.getElementById("videoGrid");
+    const statusText = document.getElementById("status");
+    const loadMoreBtn = document.getElementById("loadMore");
+    const playerSection = document.getElementById("playerSection");
+    const videoPlayer = document.getElementById("videoPlayer");
+    const playingTitle = document.getElementById("playingTitle");
+    const searchInput = document.getElementById("searchInput");
+
+    let currentQuery = "tendances vidéos françaises";
+    let nextPageToken = "";
+    let loading = false;
+
+    // Fin de l'animation d'entrée
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("intro").classList.add("hide");
+      }, 2200);
+    });
+
+    function escapeHTML(value = "") {
+      return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      })[char]);
+    }
+
+    function safeThumbnail(url, videoId) {
+      // La miniature officielle est construite à partir d'un ID vidéo.
+      if (!/^[a-zA-Z0-9_-]{11}$/.test(videoId || "")) {
+        return "";
+      }
+      return "https://i.ytimg.com/vi/" + videoId + "/mqdefault.jpg";
+    }
+
+    async function searchVideos(query, append = false) {
+      if (loading) return;
+      loading = true;
+      loadMoreBtn.disabled = true;
+      statusText.textContent = "Recherche des vidéos...";
+      if (!append) {
+        grid.innerHTML = "";
+        nextPageToken = "";
+        playerSection.style.display = "none";
+        videoPlayer.src = "about:blank";
+      }
+
+      try {
+        let url = "/api/youtube?q=" + encodeURIComponent(query);
+        if (append && nextPageToken) {
+          url += "&pageToken=" + encodeURIComponent(nextPageToken);
+        }
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (!response.ok || data.success === false) {
+          throw new Error(data.error || "Impossible de charger les vidéos.");
+        }
+
+        const videos = Array.isArray(data.videos) ? data.videos : [];
+
+        if (!videos.length && !append) {
+          statusText.textContent = "Aucune vidéo trouvée. Essaie une autre recherche.";
+          return;
+        }
+
+        videos.forEach(video => {
+          const id = video.videoId || video.id;
+          if (!/^[a-zA-Z0-9_-]{11}$/.test(id || "")) return;
+
+          const title = video.title || "Vidéo sans titre";
+          const channel = video.channelTitle || "Créateur YouTube";
+          const thumbnail = safeThumbnail(video.thumbnail, id);
+
+          const card = document.createElement("article");
+          card.className = "video-card";
+          card.tabIndex = 0;
+          card.setAttribute("role", "button");
+          card.setAttribute("aria-label", "Lire " + title);
+
+          card.innerHTML = `
+            <div class="thumbnail">
+              <img loading="lazy"
+                   src="${thumbnail}"
+                   alt="${escapeHTML(title)}"
+                   onerror="this.src='https://i.ytimg.com/vi/${id}/hqdefault.jpg'">
+              <div class="play-icon">▶</div>
+            </div>
+            <h3>${escapeHTML(title)}</h3>
+            <p>${escapeHTML(channel)}</p>
+          `;
+
+          card.addEventListener("click", () => playVideo(id, title));
+          card.addEventListener("keydown", event => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              playVideo(id, title);
+            }
+          });
+
+          grid.appendChild(card);
+        });
+
+        nextPageToken = data.nextPageToken || "";
+        loadMoreBtn.hidden = !nextPageToken;
+        statusText.textContent = grid.children.length
+          ? grid.children.length + " vidéo(s) affichée(s)"
+          : "Aucune vidéo disponible.";
+      } catch (error) {
+        statusText.textContent =
+          "Erreur : " + error.message +
+          " Vérifie la clé API YouTube et la route /api/youtube.";
+      } finally {
+        loading = false;
+        loadMoreBtn.disabled = false;
+      }
+    }
+
+    function playVideo(id, title) {
+      if (!/^[a-zA-Z0-9_-]{11}$/.test(id || "")) {
+        statusText.textContent = "Identifiant vidéo invalide.";
+        return;
+      }
+
+      playingTitle.textContent = title;
+      videoPlayer.src =
+        "https://www.youtube-nocookie.com/embed/" +
+        encodeURIComponent(id) +
+        "?autoplay=1&hl=fr&rel=0";
+
+      playerSection.style.display = "block";
+      playerSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    document.getElementById("closePlayer").addEventListener("click", () => {
+      videoPlayer.src = "about:blank";
+      playerSection.style.display = "none";
+    });
+
+    document.getElementById("searchForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const query = searchInput.value.trim();
+      if (!query) return;
+
+      currentQuery = query;
+      document.getElementById("sectionTitle").textContent =
+        "🔎 Résultats : " + query;
+      document.querySelectorAll(".categories button")
+        .forEach(button => button.classList.remove("active"));
+
+      searchVideos(currentQuery);
+    });
+
+    document.querySelectorAll(".categories button").forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".categories button")
+          .forEach(item => item.classList.remove("active"));
+
+        button.classList.add("active");
+        currentQuery = button.dataset.query;
+        document.getElementById("sectionTitle").textContent = button.textContent;
+        searchVideos(currentQuery);
+      });
+    });
+
+    loadMoreBtn.addEventListener("click", () => {
+      if (nextPageToken) searchVideos(currentQuery, true);
+    });
+
+    document.getElementById("discoverBtn").addEventListener("click", () => {
+      document.getElementById("sectionTitle").scrollIntoView({
+        behavior: "smooth"
+      });
+    });
+
+    // Charge les premières vidéos.
+    searchVideos(currentQuery);
+  </script>
+</body>
+</html>
